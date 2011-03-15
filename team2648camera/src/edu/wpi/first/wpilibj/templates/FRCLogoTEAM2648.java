@@ -8,19 +8,29 @@
 package edu.wpi.first.wpilibj.templates;
 
 
+import edu.wpi.first.wpilibj.Jaguar;
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.SimpleRobot;
+import edu.wpi.first.wpilibj.camera.AxisCamera;
 
-/**
- * The VM is configured to automatically run this class, and to call the
- * functions corresponding to each mode, as described in the SimpleRobot
- * documentation. If you change the name of this class or the package after
- * creating this project, you must also update the manifest file in the resource
- * directory.
- */
-public class RobotTemplate extends SimpleRobot {
+public class FRCLogoTEAM2648 extends SimpleRobot {
     /**
      * This function is called once each time the robot enters autonomous mode.
      */
+    Jaguar l1, l2, r1, r2;
+    RobotDrive drive;
+    Joystick j1;
+
+    public FRCLogoTEAM2648()
+    {
+        l1 = new Jaguar(1);
+        l2 = new Jaguar(2);
+        r1 = new Jaguar(3);
+        r2 = new Jaguar(4);
+        drive = new RobotDrive(l1, l2, r1, r2);
+    }
+
     public void autonomous() {
         
     }
@@ -29,6 +39,10 @@ public class RobotTemplate extends SimpleRobot {
      * This function is called once each time the robot enters operator control.
      */
     public void operatorControl() {
-
+        CameraSetup.InitializeCameraWhiteBalance(AxisCamera.getInstance());
+        while(isOperatorControl())
+        {
+            drive.arcadeDrive(j1);
+        }
     }
 }
